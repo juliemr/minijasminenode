@@ -1,0 +1,27 @@
+{
+  "name": "minijasminenode",
+  "version": "0.1.0",
+  "description": "Super simple wrapper around Jasmine for Node",
+  "homepage": "https://github.com/juliemr/minijasminenode",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/juliemr/minijasminenode.git"
+  },
+  "keywords": [
+    "testing",
+    "bdd"
+  ],
+  "author": "Julie Ralph <ju.ralph@gmail.com>",
+  "licenses": [
+    "MIT"
+  ],
+  "dependencies": {
+    "jasmine-reporters": ">=0.2.0",
+    "mkdirp": ">=0.3.5"
+  },
+  "main": "lib/jasmine-node",
+  "scripts": {
+    "test": "node lib/cli.js spec/*_spec.js"
+  },
+  "devDependencies": {}
+}

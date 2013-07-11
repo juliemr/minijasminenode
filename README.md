@@ -26,6 +26,7 @@ For more info on the command line wrapper
 usage
 -----
 
+```javascript
     var miniJasmineLib = require('minijasminenode');
     // At this point, jasmine is available in the global node context
 
@@ -38,9 +39,11 @@ usage
 
     // Run those tests!
     miniJasmineLib.executeSpecs();
+```
 
 You can also pass an options object into `executeSpecs`
 
+````javascript
     var miniJasmineLib = require('minijasminenode');
 
     var options = {
@@ -58,6 +61,7 @@ You can also pass an options object into `executeSpecs`
       includeStackTrace: true
     };
     miniJasmineLib.executeSpecs(options);
+````
 
 jasmine
 -------

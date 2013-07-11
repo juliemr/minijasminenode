@@ -1,6 +1,6 @@
 {
   "name": "minijasminenode",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Super simple wrapper around Jasmine for Node",
   "homepage": "https://github.com/juliemr/minijasminenode",
   "repository": {
@@ -15,11 +15,9 @@
   "licenses": [
     "MIT"
   ],
-  "dependencies": {
-    "jasmine-reporters": ">=0.2.0",
-    "mkdirp": ">=0.3.5"
-  },
-  "main": "lib/jasmine-node",
+  "dependencies": {},
+  "main": "lib/index.js",
+  "bin": "bin/minijn",
   "scripts": {
     "test": "node lib/cli.js spec/*_spec.js"
   },

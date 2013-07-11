@@ -23,6 +23,21 @@ For more info on the command line wrapper
 
     ./bin/minijl --help
 
+installation
+------------
+
+Get the library with
+
+    npm install minijasminenode
+
+Or, install globally
+
+    npm install -g minijasminenode
+
+If you install globally, you can use minijasminenode directly from the command line
+
+    minijasminenode mySpecFolder/mySpec.js
+
 usage
 -----
 

@@ -13,5 +13,5 @@ echo "These should be examples of failing tests"
 command="${entry} spec/failure_egs.js"
 echo $command
 time $command #/nested/uber-nested
-echo -e "\033[1;35m--- Should have 3 tests, 3 assertions, 2 failures ---\033[0m"
+echo -e "\033[1;35m--- Should have 5 tests, 5 assertions, 4 failures ---\033[0m"
 echo ""

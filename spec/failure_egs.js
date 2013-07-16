@@ -1,4 +1,4 @@
-describe('jasmine-node-uber-nested', function(){
+describe('a pass and a failure', function(){
   it('should pass', function(){
     expect(1+2).toEqual(3);
   });
@@ -22,4 +22,22 @@ describe('Testing waitsfor functionality', function() {
             expect(true).toBeTruthy();
         });
     });
+});
+
+describe('timeouts', function() {
+  jasmine.getEnv().defaultTimeoutInterval = 44;
+
+  it('should timeout after 44ms (THIS IS EXPECTED)', function(done) {
+    setTimeout(function() {
+      expect(true).toBe(true);
+      done();
+    }, 1000);
+  });
+
+  it('should timeout after 55ms (THIS IS EXPECTED)', function(done) {
+    setTimeout(function() {
+      expect(true).toBe(true);
+      done();
+    }, 1000);
+  }, 55);
 });

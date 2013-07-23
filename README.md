@@ -73,7 +73,9 @@ You can also pass an options object into `executeSpecs`
       // If true, print colors to the terminal.
       showColors: true,
       // If true, include stack traces in failures.
-      includeStackTrace: true
+      includeStackTrace: true,
+      // Time to wait in milliseconds before a test automatically fails
+      defaultTimeoutInterval: 5000
     };
     miniJasmineLib.executeSpecs(options);
 ````

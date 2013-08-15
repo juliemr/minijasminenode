@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+GLOBIGNORE="spec/test_iit_spec.js"
+
 entry="node lib/cli.js"
 
 echo "All these tests should pass"
@@ -14,4 +16,11 @@ command="${entry} spec/failure_egs.js"
 echo $command
 time $command #/nested/uber-nested
 echo -e "\033[1;35m--- Should have 5 tests, 5 assertions, 4 failures ---\033[0m"
+echo ""
+
+echo "iit tests"
+command="${entry} spec/test_iit_spec.js"
+echo $command
+time $command #/nested/uber-nested
+echo -e "\033[1;35m--- Should have 1 tests, 3 assertions, 0 failures ---\033[0m"
 echo ""

@@ -1,5 +1,5 @@
 describe("Top level describe block", function() {
-  it("first it block in top level describe", function() {
+  iit("first it block in top level describe", function() {
     expect(true).toEqual(true);
   });
   describe("Second level describe block", function() {

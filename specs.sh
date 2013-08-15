@@ -22,5 +22,5 @@ echo "iit tests"
 command="${entry} spec/test_iit_spec.js"
 echo $command
 time $command #/nested/uber-nested
-echo -e "\033[1;35m--- Should have 1 tests, 3 assertions, 0 failures ---\033[0m"
+echo -e "\033[1;35m--- Should have 2 tests, 2 assertions, 0 failures ---\033[0m"
 echo ""

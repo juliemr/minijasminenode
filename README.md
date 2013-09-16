@@ -67,7 +67,7 @@ You can also pass an options object into `executeSpecs`
       specs: ['specDir/mySpec1.js', 'specDir/mySpec2.js'],
       // A function to call on completion.
       // function(runner, log)
-      done: function(runner, log) { util.prints('done!'); },
+      onComplete: function(runner, log) { util.prints('done!'); },
       // If true, display spec names.
       isVerbose: false,
       // If true, print colors to the terminal.

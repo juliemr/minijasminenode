@@ -1,10 +1,13 @@
 var minijasminelib = require('../lib/index');
 
 describe('syntax-error', function() {
-  var env;
+  var env,
+      apiReporter;
   beforeEach(function() {
-    env = new jasmine.Env();
-    // Hide the failure result on the console
+    env = new jasmine.Env
+    apiReporter = new jasmine.JsApiReporter({});
+    env.addReporter(apiReporter);
+    // Suppress messages from the nested minijasminelib call.
     env.addReporter = function() {};
   });
 
@@ -13,9 +16,10 @@ describe('syntax-error', function() {
       specs: ['spec/syntax_error.js'],
       jasmineEnv: env
     });
-    expect(env.currentRunner().results().failedCount).toEqual(1);
-    var firstResult = env.currentRunner().results().getItems()[0];
-    var firstSpecResult = firstResult.getItems()[0].getItems()[0];
-    expect(firstSpecResult.message).toMatch('SyntaxError');
+
+    expect(apiReporter.specs().length).toEqual(1);
+    var firstResult = apiReporter.specs()[0];
+    expect(firstResult.status).toEqual('failed');
+    expect(firstResult.failedExpectations[0].message).toMatch('SyntaxError');
   });
 });

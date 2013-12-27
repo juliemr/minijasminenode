@@ -6,13 +6,15 @@ This node.js module makes the wonderful Pivotal Lab's jasmine
 (http://github.com/pivotal/jasmine) spec framework available in
 node.js.
 
+The 2.0 branch is a beta version using Jasmine 2.0.
+
 features
 --------
 
 MiniJasmineNode exports a library which
 - places Jasmine in Node's global namespace, similar to how it's run in a browser
-- adds asynchronous testing with done().
 - adds result reporters for the terminal.
+- adds focused testing with iit and ddescribe.
 - adds the ability to load tests from file.
 
 The module also contains a command line wrapper that can be run with

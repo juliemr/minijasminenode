@@ -85,6 +85,10 @@ jasmine
 
 Version 1.3.1 of Jasmine is currently included with node-jasmine.
 
+*New* a canary version using Jasmine v2.0.0 is now available using
+
+    npm install minijasminenode@canary
+
 to run the tests
 ----------------
 `./specs.sh`

@@ -15,7 +15,7 @@
   "licenses": [
     "MIT"
   ],
-  "dependencies": {},
+  "dependencies": {"node-v8-clone": "~0.4.5"},
   "main": "lib/index.js",
   "bin": "bin/minijn",
   "scripts": {

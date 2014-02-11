@@ -2,6 +2,11 @@
 
 entry="node lib/cli.js"
 
+#command="${entry} spec/because2.js"
+#echo $command
+#time $command
+#exit
+
 echo "All these tests should pass"
 command="${entry} spec/*_spec.js"
 echo $command
@@ -10,8 +15,8 @@ echo -e "\033[1;35m--- Should have 55, 102 assertions, 0 failures. ---\033[0m"
 echo ""
 
 echo "These should be examples of failing tests"
-command="${entry} spec/failure_egs.js spec/syntax_error.js"
+command="${entry} spec/because.js spec/failure_egs.js spec/syntax_error.js"
 echo $command
 time $command #/nested/uber-nested
-echo -e "\033[1;35m--- Should have 6 tests, 6 assertions, 5 failures ---\033[0m"
+echo -e "\033[1;35m--- Should have 12 tests, 18 assertions, 11 failures ---\033[0m"
 echo ""

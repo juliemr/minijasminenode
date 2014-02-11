@@ -6,7 +6,7 @@ echo "All these tests should pass"
 command="${entry} spec/*_spec.js"
 echo $command
 time $command #/nested/uber-nested
-echo -e "\033[1;35m--- Should have 54, 100 assertions, 0 failures. ---\033[0m"
+echo -e "\033[1;35m--- Should have 55, 102 assertions, 0 failures. ---\033[0m"
 echo ""
 
 echo "These should be examples of failing tests"

@@ -15,7 +15,9 @@
   "licenses": [
     "MIT"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "jasmine-core": "*"
+  },
   "main": "lib/index.js",
   "bin": "bin/minijn",
   "scripts": {

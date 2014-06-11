@@ -1,21 +1,21 @@
 var minijasminelib = require('../lib/index');
 
 describe('nested calls to executeSpecs', function() {
-  var env;
+  var subEnv;
   beforeEach(function() {
-    env = new jasmine.Env();
-    // Hide the failure result on the console
-    env.addReporter = function() {};
+    subEnv = new jasmine.Env();
   });
 
-  it('should allow a nested call to minijasminelib', function() {
+  it('should allow a nested call to minijasminelib', function(done) {
+    console.log('Begin nested call');
     minijasminelib.executeSpecs({
       specs: ['spec/simplefail.js'],
-      jasmineEnv: env
+      jasmineEnv: subEnv,
+      onComplete: function(passed) {
+        expect(passed).toEqual(false);
+        console.log('End nested call');
+        done();
+      }
     });
-    expect(env.currentRunner().results().failedCount).toEqual(1);
-    var firstResult = env.currentRunner().results().getItems()[0];
-    var firstSpecResult = firstResult.getItems()[0].getItems()[0];
-    expect(firstSpecResult.message).toMatch('Expected true to equal false');
   });
 });

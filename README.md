@@ -2,26 +2,20 @@ minijasminenode
 ======
 
 Based on Jasmine-Node, but minus the fancy stuff.
-This node.js module makes the wonderful Pivotal Lab's jasmine
+This node.js module makes Pivotal Lab's Jasmine
 (http://github.com/pivotal/jasmine) spec framework available in
-node.js.
+node.js or via the command line.
 
 features
 --------
 
 MiniJasmineNode exports a library which
-- places Jasmine in Node's global namespace, similar to how it's run in a browser
-- adds asynchronous testing with done().
+- places Jasmine in Node's global namespace, similar to how it's run in a browser.
 - adds result reporters for the terminal.
 - adds the ability to load tests from file.
+- adds focused specs with `iit` and `ddescribe`.
 
-The module also contains a command line wrapper that can be run with
-
-    ./bin/minijl specDir/mySpec1.js specDir/mySpec2.js
-
-For more info on the command line wrapper
-
-    ./bin/minijl --help
+The module also contains a command line wrapper.
 
 installation
 ------------
@@ -38,12 +32,25 @@ If you install globally, you can use minijasminenode directly from the command l
 
     minijasminenode mySpecFolder/mySpec.js
 
+See more options
+
+    minijasminenode --help
+
 usage
 -----
+```javascript
+// Your test file - mySpecFolder/mySpec.js
+describe('foo', function() {
+  it('should pass', function() {
+    expect(2 + 2).toEqual(4);
+  });
+});
+```
+
 
 ```javascript
     var miniJasmineLib = require('minijasminenode');
-    // At this point, jasmine is available in the global node context
+    // At this point, jasmine is available in the global node context.
 
     // Add your tests by filename.
     miniJasmineLib.addSpecs('myTestFolder/mySpec.js');
@@ -53,7 +60,7 @@ usage
     miniJasmineLib.addReporter(myCustomReporter);
 
     // Run those tests!
-    miniJasmineLib.executeSpecs();
+    miniJasmineLib.executeSpecs(options);
 ```
 
 You can also pass an options object into `executeSpecs`
@@ -66,9 +73,9 @@ You can also pass an options object into `executeSpecs`
       // executed, as well as any tests added with addSpecs()
       specs: ['specDir/mySpec1.js', 'specDir/mySpec2.js'],
       // A function to call on completion.
-      // function(runner, log)
-      onComplete: function(runner, log) { console.log('done!'); },
-      // If true, display spec names.
+      // function(passed)
+      onComplete: function(passed) { console.log('done!'); },
+      // If true, display suite and spec names.
       isVerbose: false,
       // If true, print colors to the terminal.
       showColors: true,
@@ -83,11 +90,14 @@ You can also pass an options object into `executeSpecs`
 jasmine
 -------
 
-Version 1.3.1 of Jasmine is currently included with node-jasmine.
+minijasminenode works with Jasmine 2.0.0. There is a branch running on
+Jasmine 1.3.1 available, install it with
 
-*New* a canary version using Jasmine v2.0.0 is now available using
+    npm install minijasminenode@jasmine1
 
-    npm install minijasminenode@canary
+Note that there have been breaking changes between Jasmine 1.3.1 and Jasmine 2.0.
+Notably, a different interface for reporters and custom matchers. Also, note that
+per-spec timeouts (e.g. `it('does foo', fn, 1000))` no longer work in Jasmine 2.0.
 
 to run the tests
 ----------------

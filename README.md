@@ -25,11 +25,11 @@ MiniJasmineNode exports a library which
 
 The module also contains a command line wrapper that can be run with
 
-    ./bin/minijn specDir/mySpec1.js specDir/mySpec2.js
+    minijasminenode specDir/mySpec1.js specDir/mySpec2.js
 
 For more info on the command line wrapper
 
-    ./bin/minijn --help
+    minijasminenode --help
 
 installation
 ------------

@@ -1,4 +1,4 @@
-minijasminenode
+minijasminenode2
 ======
 
 Based on Jasmine-Node, but minus the fancy stuff.

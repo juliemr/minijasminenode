@@ -1,8 +1,8 @@
 {
   "name": "minijasminenode",
-  "version": "0.4.0",
-  "description": "Super simple wrapper around Jasmine for Node",
-  "homepage": "https://github.com/juliemr/minijasminenode",
+  "version": "1.0.0",
+  "description": "Super simple wrapper around Jasmine 1.3 for Node",
+  "homepage": "https://github.com/juliemr/minijasminenode/tree/jasmine1",
   "repository": {
     "type": "git",
     "url": "https://github.com/juliemr/minijasminenode.git"

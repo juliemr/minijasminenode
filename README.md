@@ -6,6 +6,20 @@ This node.js module makes Pivotal Lab's Jasmine
 (http://github.com/pivotal/jasmine) spec framework available in
 node.js or via the command line.
 
+version notice
+--------------
+
+minijasminenode comes in two flavors.
+
+ - minijasminenode runs [Jasmine 1.3](http://jasmine.github.io/1.3/introduction.html)
+ - minijasminenode2 runs [Jasmine 2.0](http://jasmine.github.io/2.0/introduction.html)
+
+This is the branch for minijasminenode2. [Switch to minijasminenode](https://github.com/juliemr/minijasminenode/tree/jasmine1).
+
+Note that there have been breaking changes between Jasmine 1.3.1 and Jasmine 2.0.
+Notably, a different interface for reporters and custom matchers. Also, note that
+per-spec timeouts (e.g. `it('does foo', fn, 1000))` no longer work in Jasmine 2.0.
+
 features
 --------
 
@@ -22,19 +36,19 @@ installation
 
 Get the library with
 
-    npm install minijasminenode
+    npm install minijasminenode2
 
 Or, install globally
 
-    npm install -g minijasminenode
+    npm install -g minijasminenode2
 
 If you install globally, you can use minijasminenode directly from the command line
 
-    minijasminenode mySpecFolder/mySpec.js
+    minijasminenode2 mySpecFolder/mySpec.js
 
 See more options
 
-    minijasminenode --help
+    minijasminenode2 --help
 
 usage
 -----
@@ -49,7 +63,7 @@ describe('foo', function() {
 
 
 ```javascript
-    var miniJasmineLib = require('minijasminenode');
+    var miniJasmineLib = require('minijasminenode2');
     // At this point, jasmine is available in the global node context.
 
     // Add your tests by filename.
@@ -66,7 +80,7 @@ describe('foo', function() {
 You can also pass an options object into `executeSpecs`
 
 ````javascript
-    var miniJasmineLib = require('minijasminenode');
+    var miniJasmineLib = require('minijasminenode2');
 
     var options = {
       // An array of filenames, relative to current dir. These will be
@@ -87,17 +101,6 @@ You can also pass an options object into `executeSpecs`
     miniJasmineLib.executeSpecs(options);
 ````
 
-jasmine
--------
-
-minijasminenode works with Jasmine 2.0.0. There is a branch running on
-Jasmine 1.3.1 available, install it with
-
-    npm install minijasminenode@jasmine1
-
-Note that there have been breaking changes between Jasmine 1.3.1 and Jasmine 2.0.
-Notably, a different interface for reporters and custom matchers. Also, note that
-per-spec timeouts (e.g. `it('does foo', fn, 1000))` no longer work in Jasmine 2.0.
 
 to run the tests
 ----------------

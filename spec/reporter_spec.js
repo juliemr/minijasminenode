@@ -4,6 +4,7 @@ describe('TerminalReporter', function() {
   beforeEach(function() {
     var config = {}
     this.reporter = new reporters.TerminalReporter(config);
+    this.reporter.startedAt = new Date();
   });
 
   describe("initialize", function() {
@@ -180,10 +181,10 @@ describe('TerminalReporter', function() {
     });
 
     it('prints an \'F\' for failure', function() {
-      var addFailureToFailuresSpy = spyOn(this.reporter, 'addFailureToFailures_');
       var results = function() {
         var result = {
-          passed: function() { return false; }
+          passed: function() { return false; },
+          items_: []
         }
         return result;
       }
@@ -192,11 +193,10 @@ describe('TerminalReporter', function() {
       this.reporter.reportSpecResults(this.spec);
 
       expect(this.printSpy).toHaveBeenCalledWith('F');
-      expect(addFailureToFailuresSpy).toHaveBeenCalled();
     });
   });
 
-  describe('addFailureToFailures', function() {
+  describe('addFailure', function() {
     it('adds message and stackTrace to failures_', function() {
       var spec = {
         suite: {
@@ -222,12 +222,12 @@ describe('TerminalReporter', function() {
         }
       };
 
-      this.reporter.addFailureToFailures_(spec);
+      this.reporter.addFailure_(spec);
 
       var failures = this.reporter.failures_;
       expect(failures.length).toEqual(1);
       var failure = failures[0];
-      expect(failure.spec).toEqual('Suite name the spec');
+      expect(failure.description).toEqual('Suite name the spec');
       expect(failure.message).toEqual('the message');
       expect(failure.stackTrace).toEqual('the stack');
     });
@@ -273,7 +273,7 @@ describe('TerminalReporter', function() {
 
     it('prints the failures', function() {
       var failure = {
-        spec: 'the spec',
+        description: 'the spec',
         message: 'the message',
         stackTrace: 'the stackTrace'
       }
@@ -306,7 +306,7 @@ describe('TerminalReporter', function() {
         this.printLineSpy = spyOn(this.reporter, 'printLine_');
 
         var failure = {
-            spec: 'the spec',
+            description: 'the spec',
             message: 'the message',
             stackTrace: 'the stackTrace'
         }
@@ -331,140 +331,74 @@ describe('TerminalReporter', function() {
         expect(this.printSpy.argsForCall[1]).toBeUndefined();
     });
   });
-});
 
-describe('TerminalVerboseReporter', function() {
-  beforeEach(function() {
-    var config = {}
-    this.verboseReporter = new reporters.TerminalVerboseReporter(config);
-    this.addFailureToFailuresSpy = spyOn(this.verboseReporter, 'addFailureToFailures_');
-    this.spec = {
-      id: 23,
-      results: function() {
-        return {
-          failedCount: 1,
-          getItems: function() {
-            return ["this is the message"];
-          }
-        }
-      }
-    };
-  });
-
-  describe('#reportSpecResults', function() {
-    it('adds the spec to the failures_', function() {
-      this.verboseReporter.reportSpecResults(this.spec);
-
-      expect(this.addFailureToFailuresSpy).toHaveBeenCalledWith(this.spec);
-    });
-
-    it('adds a new object to the specResults_', function() {
-      this.verboseReporter.reportSpecResults(this.spec);
-
-      expect(this.verboseReporter.specResults_[23].messages).toEqual(['this is the message']);
-      expect(this.verboseReporter.specResults_[23].result).toEqual('failed');
-    });
-  });
-
-  describe('#buildMessagesFromResults_', function() {
+  describe('when verbose', function() {
     beforeEach(function() {
+      var config = {
+        isVerbose: true
+      };
+      this.verboseReporter = new reporters.TerminalReporter(config);
+      this.verboseReporter.startedAt = new Date();
+      this.verbosePrintSpy = spyOn(this.verboseReporter, 'printLine_');
       this.suite = {
-        type: 'suite',
-        name: 'a describe block',
-        suiteNestingLevel: 0,
-        children: [],
-        getFullName: function() { return "A spec"; },
+        id: 4,
+        description: 'child suite',
+        getFullName: function() {return 'child suite'},
+        parentSuite: {
+          id: 2,
+          description: 'parent suite',
+          getFullName: function() {return 'parent suite'},
+        }
+      };
+    });
+
+    it('should output the message on success', function() {
+      console.log('starting');
+      var successSpec = {
+        id: 11,
+        description: 'the spec',
+        suite: this.suite,
+        results: function() {
+          return {
+            passed: function() {
+              return true;
+            }
+          };
+        }
       };
 
-      this.spec = {
-        id: 23,
-        type: 'spec',
-        name: 'a spec block',
-        children: []
+      this.verboseReporter.reportSpecResults(successSpec);
+      expect(this.verbosePrintSpy).toHaveBeenCalled();
+      expect(this.verbosePrintSpy.argsForCall).toEqual([
+        ['parent suite'],
+        ['  child suite', ],
+        ['    the spec'] ]);
+      console.log('done');
+    });
+
+    it('should output the message on failure', function() {
+      console.log('starting');
+      var successSpec = {
+        id: 11,
+        description: 'the spec',
+        suite: this.suite,
+        results: function() {
+          return {
+            items_: [],
+            passed: function() {
+              return false;
+            }
+          };
+        }
       };
 
-      this.verboseReporter.specResults_['23'] = {
-        result: 'passed'
-      };
-
-    });
-
-    it('does not build anything when the results collection is empty', function() {
-      var results = [],
-          messages = [];
-
-      this.verboseReporter.buildMessagesFromResults_(messages, results);
-
-      expect(messages.length).toEqual(0);
-    });
-
-    it('adds a single suite to the messages', function() {
-      var results = [],
-          messages = [];
-
-      results.push(this.suite);
-
-      this.verboseReporter.buildMessagesFromResults_(messages, results);
-
-      expect(messages.length).toEqual(2);
-      expect(messages[0]).toEqual('');
-      expect(messages[1]).toEqual('a describe block');
-    });
-
-    it('adds a single spec with success to the messages', function() {
-      var results = [],
-          messages = [];
-
-      this.passSpy = spyOn(this.verboseReporter.color_, 'pass');
-
-      results.push(this.spec);
-
-      this.verboseReporter.buildMessagesFromResults_(messages, results);
-
-      expect(this.passSpy).toHaveBeenCalled();
-      expect(messages.length).toEqual(1);
-      expect(messages[0]).toEqual('a spec block');
-    });
-
-    it('adds a single spec with failure to the messages', function() {
-      var results = [],
-          messages = [];
-
-      this.verboseReporter.specResults_['23'].result = 'failed';
-
-      this.passSpy = spyOn(this.verboseReporter.color_, 'pass');
-      this.failSpy = spyOn(this.verboseReporter.color_, 'fail');
-
-      results.push(this.spec);
-
-      this.verboseReporter.buildMessagesFromResults_(messages, results);
-
-      expect(this.failSpy).toHaveBeenCalled();
-      expect(this.passSpy).not.toHaveBeenCalled();
-    });
-
-    it('adds a suite, a suite and a single spec with success to the messages', function() {
-      var results = [],
-          messages = [];
-
-      var subSuite = new Object();
-      subSuite.type = 'suite';
-      subSuite.name = 'a sub describe block';
-      subSuite.suiteNestingLevel = 1;
-      subSuite.children = [];
-      subSuite.children.push(this.spec);
-
-      this.suite.children.push(subSuite);
-      results.push(this.suite);
-
-      this.verboseReporter.buildMessagesFromResults_(messages, results);
-
-      expect(messages.length).toEqual(5);
-      expect(messages[0]).toEqual('');
-      expect(messages[1]).toEqual('a describe block');
-      expect(messages[2]).toEqual('');
-      expect(messages[3]).toEqual('    a sub describe block');
-      expect(messages[4]).toEqual('        a spec block');
+      this.verboseReporter.reportSpecResults(successSpec);
+      expect(this.verbosePrintSpy).toHaveBeenCalled();
+      expect(this.verbosePrintSpy.argsForCall).toEqual([
+        ['parent suite'],
+        ['  child suite', ],
+        ['    the spec'] ]);
+      console.log('done');
     });
   });
 });

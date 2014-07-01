@@ -87,7 +87,9 @@ You can also pass an options object into `executeSpecs`
       // Time to wait in milliseconds before a test automatically fails
       defaultTimeoutInterval: 5000,
       // If true, print timestamps for failures
-      showTiming: true
+      showTiming: true,
+      // Print failures in real time.
+      realtimeFailure: false
     };
     miniJasmineLib.executeSpecs(options);
 ````

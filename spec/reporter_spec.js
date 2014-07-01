@@ -32,18 +32,6 @@ describe('TerminalReporter', function() {
       expect(this.reporter.finished_).toBeFalsy();
     });
 
-    it('initializes the suites_ array', function() {
-      var config = {}
-      this.reporter = new reporters.TerminalReporter(config);
-      expect(this.reporter.suites_.length).toEqual(0);
-    });
-
-    it('initializes the specResults_ to an Object', function() {
-      var config = {}
-      this.reporter = new reporters.TerminalReporter(config);
-      expect(this.reporter.specResults_).toBeDefined();
-    });
-
     it('initializes the failures_ array', function() {
       var config = {}
       this.reporter = new reporters.TerminalReporter(config);
@@ -87,46 +75,6 @@ describe('TerminalReporter', function() {
       // instanceof does not work cross-context (such as when run with requirejs)
       var ts = Object.prototype.toString;
       expect(ts.call(this.reporter.startedAt)).toBe(ts.call(new Date()));
-    });
-
-    it('buildes the suites_ collection', function() {
-      expect(this.reporter.suites_.length).toEqual(1);
-      expect(this.reporter.suites_[0].id).toEqual(25);
-    });
-  });
-
-  describe('the summarize_ creates suite and spec tree', function() {
-    beforeEach(function() {
-      this.spec = {
-        id: 1,
-        description: 'the spec',
-        isSuite: false
-      }
-    });
-
-    it('creates a summary object from spec', function() {
-      var result = this.reporter.summarize_(this.spec);
-
-      expect(result.id).toEqual(1);
-      expect(result.name).toEqual('the spec');
-      expect(result.type).toEqual('spec');
-      expect(result.children.length).toEqual(0);
-    });
-
-    it('creates a summary object from suite with 1 spec', function() {
-      var env = { nextSuiteId: false }
-      var suite = new jasmine.Suite(env, 'suite name', undefined, undefined);
-      suite.description = 'the suite';
-      suite.parentSuite = null;
-      suite.children_.push(this.spec);
-
-      var result = this.reporter.summarize_(suite);
-      expect(result.name).toEqual('the suite');
-      expect(result.type).toEqual('suite');
-      expect(result.children.length).toEqual(1);
-
-      var suiteChildSpec = result.children[0];
-      expect(suiteChildSpec.id).toEqual(1);
     });
   });
 

@@ -76,14 +76,16 @@ You can also pass an options object into `executeSpecs`
       // A function to call on completion.
       // function(runner, log)
       onComplete: function(runner, log) { console.log('done!'); },
-      // If true, display spec names.
+      // If true, display spec and suite names.
       isVerbose: false,
       // If true, print colors to the terminal.
       showColors: true,
       // If true, include stack traces in failures.
       includeStackTrace: true,
       // Time to wait in milliseconds before a test automatically fails
-      defaultTimeoutInterval: 5000
+      defaultTimeoutInterval: 5000,
+      // If true, print timestamps for failures
+      showTiming: true
     };
     miniJasmineLib.executeSpecs(options);
 ````

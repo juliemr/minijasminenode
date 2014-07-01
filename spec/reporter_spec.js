@@ -353,7 +353,6 @@ describe('TerminalReporter', function() {
     });
 
     it('should output the message on success', function() {
-      console.log('starting');
       var successSpec = {
         id: 11,
         description: 'the spec',
@@ -372,12 +371,10 @@ describe('TerminalReporter', function() {
       expect(this.verbosePrintSpy.argsForCall).toEqual([
         ['parent suite'],
         ['  child suite', ],
-        ['    the spec'] ]);
-      console.log('done');
+        ['    the spec - pass'] ]);
     });
 
     it('should output the message on failure', function() {
-      console.log('starting');
       var successSpec = {
         id: 11,
         description: 'the spec',
@@ -397,8 +394,7 @@ describe('TerminalReporter', function() {
       expect(this.verbosePrintSpy.argsForCall).toEqual([
         ['parent suite'],
         ['  child suite', ],
-        ['    the spec'] ]);
-      console.log('done');
+        ['    the spec - fail'] ]);
     });
   });
 });

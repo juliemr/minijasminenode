@@ -78,6 +78,8 @@ You can also pass an options object into `executeSpecs`
       onComplete: function(runner, log) { console.log('done!'); },
       // If true, display spec and suite names.
       isVerbose: false,
+      // If true, output nothing to the terminal. Overrides other printing options.
+      silent: false,
       // If true, print colors to the terminal.
       showColors: true,
       // If true, include stack traces in failures.

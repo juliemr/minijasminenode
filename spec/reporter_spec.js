@@ -13,12 +13,6 @@ describe('TerminalReporter', function() {
       expect(this.reporter.print_).toBeTruthy();
     });
 
-    it('initializes color_ from config', function() {
-      var config = { color: true }
-      this.reporter = new reporters.TerminalReporter(config);
-      expect(this.reporter.color_).toEqual(reporters.TerminalReporter.prototype.ANSIColors);
-    });
-
     it('initializes includeStackTrace_ from config', function () {
         var config = {}
         this.reporter = new reporters.TerminalReporter(config);

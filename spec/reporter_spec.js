@@ -1,70 +1,70 @@
-var jasmineNode = require(__dirname + "/../lib/reporter").jasmineNode;
+var reporters = require(__dirname + "/../lib/reporter");
 
 describe('TerminalReporter', function() {
   beforeEach(function() {
     var config = {}
-    this.reporter = new jasmineNode.TerminalReporter(config);
+    this.reporter = new reporters.TerminalReporter(config);
   });
 
   describe("initialize", function() {
     it('initializes print_ from config', function() {
       var config = { print: true };
-      this.reporter = new jasmineNode.TerminalReporter(config);
+      this.reporter = new reporters.TerminalReporter(config);
       expect(this.reporter.print_).toBeTruthy();
     });
 
     it('initializes color_ from config', function() {
       var config = { color: true }
-      this.reporter = new jasmineNode.TerminalReporter(config);
-      expect(this.reporter.color_).toEqual(jasmineNode.TerminalReporter.prototype.ANSIColors);
+      this.reporter = new reporters.TerminalReporter(config);
+      expect(this.reporter.color_).toEqual(reporters.TerminalReporter.prototype.ANSIColors);
     });
 
     it('initializes includeStackTrace_ from config', function () {
         var config = {}
-        this.reporter = new jasmineNode.TerminalReporter(config);
+        this.reporter = new reporters.TerminalReporter(config);
         expect(this.reporter.includeStackTrace_).toBeTruthy();
     });
 
     it('sets the started_ flag to false', function() {
       var config = {}
-      this.reporter = new jasmineNode.TerminalReporter(config);
+      this.reporter = new reporters.TerminalReporter(config);
       expect(this.reporter.started_).toBeFalsy();
     });
 
     it('sets the finished_ flag to false', function() {
       var config = {}
-      this.reporter = new jasmineNode.TerminalReporter(config);
+      this.reporter = new reporters.TerminalReporter(config);
       expect(this.reporter.finished_).toBeFalsy();
     });
 
     it('initializes the suites_ array', function() {
       var config = {}
-      this.reporter = new jasmineNode.TerminalReporter(config);
+      this.reporter = new reporters.TerminalReporter(config);
       expect(this.reporter.suites_.length).toEqual(0);
     });
 
     it('initializes the specResults_ to an Object', function() {
       var config = {}
-      this.reporter = new jasmineNode.TerminalReporter(config);
+      this.reporter = new reporters.TerminalReporter(config);
       expect(this.reporter.specResults_).toBeDefined();
     });
 
     it('initializes the failures_ array', function() {
       var config = {}
-      this.reporter = new jasmineNode.TerminalReporter(config);
+      this.reporter = new reporters.TerminalReporter(config);
       expect(this.reporter.failures_.length).toEqual(0);
     });
 
     it('sets the callback_ property to false by default', function() {
       var config = {}
-      this.reporter = new jasmineNode.TerminalReporter(config);
+      this.reporter = new reporters.TerminalReporter(config);
       expect(this.reporter.callback_).toEqual(false)
     });
 
     it('sets the callback_ property to onComplete if supplied', function() {
       var foo = function() { }
       var config = { onComplete: foo }
-      this.reporter = new jasmineNode.TerminalReporter(config);
+      this.reporter = new reporters.TerminalReporter(config);
       expect(this.reporter.callback_).toBe(foo)
     });
   });
@@ -307,7 +307,7 @@ describe('TerminalReporter', function() {
 
     it('prints the failures without a Stacktrace', function () {
         var config = { includeStackTrace: false };
-        this.reporter = new jasmineNode.TerminalReporter(config);
+        this.reporter = new reporters.TerminalReporter(config);
         this.printSpy = spyOn(this.reporter, 'print_');
         this.printLineSpy = spyOn(this.reporter, 'printLine_');
 
@@ -342,7 +342,7 @@ describe('TerminalReporter', function() {
 describe('TerminalVerboseReporter', function() {
   beforeEach(function() {
     var config = {}
-    this.verboseReporter = new jasmineNode.TerminalVerboseReporter(config);
+    this.verboseReporter = new reporters.TerminalVerboseReporter(config);
     this.addFailureToFailuresSpy = spyOn(this.verboseReporter, 'addFailureToFailures_');
     this.spec = {
       id: 23,

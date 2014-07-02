@@ -1,3 +1,8 @@
+# 1.1.1
+## Fixes
+- ([a75f489](https://github.com/juliemr/minijasminenode/commit/a75f4894852e8cbb3a9b3a556ff993dced200cea)) 
+  fix(reporter): report full date as well as relative
+
 # 1.1.0
 
 ## Features

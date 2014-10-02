@@ -77,6 +77,20 @@ describe('foo', function() {
     miniJasmineLib.executeSpecs(options);
 ```
 
+If you want a custom runner instead of the default add it as an option into `executeSpecs`
+```javascript
+    var miniJasmineLib = require('minijasminenode2');
+    var myCustomReporter = require('myCustomReporter');
+    // At this point, jasmine is available in the global node context.
+
+    // Add your tests by filename.
+    miniJasmineLib.addSpecs('myTestFolder/mySpec.js');
+
+    // Run those tests!
+    miniJasmineLib.executeSpecs({
+      reporter: myCustomReporter
+    });
+```
 You can also pass an options object into `executeSpecs`
 
 ````javascript

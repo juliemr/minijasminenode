@@ -24,3 +24,11 @@ describe('timeouts', function() {
     expect(1 + 2).toEqual(3);
   });
 });
+
+describe('manual failure', function() {
+  it('should fail manually (THIS IS EXPECTED)', function(done) {
+    setTimeout(function() {
+      done.fail('Error');
+    }, 10);
+  });
+});
